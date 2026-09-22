@@ -12,5 +12,7 @@ jobs:
       - uses: actions/checkout@v4
       - name: bash -n ./lab
         run: bash -n ./lab
-      - name: lab doctor exits 2
-        run: if ./lab doctor; then exit 1; fi
+      - name: lab stub shell test
+        run: bash tests/lab_stub_test.sh
+      - name: unit tests
+        run: python3 -m pip install -r requirements.txt && python3 -m pytest -q

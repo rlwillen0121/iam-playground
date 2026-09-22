@@ -1,0 +1,16 @@
+{
+  "id": "authorization-failure",
+  "version": "1",
+  "fixture": "enterprise-small-v1",
+  "requiredCapabilities": ["hr.rest", "scim"],
+  "preconditions": [
+    "The caller is authenticated but is not authorized for the target write."
+  ],
+  "allowedChanges": [],
+  "protectedState": [
+    "Target accounts stay unchanged.",
+    "Entitlements stay unchanged.",
+    "The denial is the result. It is not a pass."
+  ],
+  "mode": "reference|external"
+}

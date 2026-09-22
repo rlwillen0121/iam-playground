@@ -1,0 +1,17 @@
+{
+  "id": "transaction-rollback",
+  "version": "1",
+  "fixture": "enterprise-small-v1",
+  "requiredCapabilities": ["jdbc"],
+  "preconditions": [
+    "The JDBC pack is required and has not shipped."
+  ],
+  "allowedChanges": [],
+  "protectedState": [
+    "No partial account or role write is a pass."
+  ],
+  "mode": "reference|external",
+  "available": false,
+  "passable": false,
+  "status": "unavailable until JDBC, not passable"
+}

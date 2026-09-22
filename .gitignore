@@ -9,6 +9,10 @@ dist/
 .env.*
 !.env.example
 
+.lab-runs/
+
+infra/keycloak/generated/
+
 docker-volumes/
 data/keycloak/
 data/postgres/

@@ -1,0 +1,47 @@
+# Suffix dc=iam,dc=test is created by slapd from LDAP_DOMAIN=iam.test.
+# Synthetic lab passwords below are the same kind of fixture data as
+# fixtures/enterprise-small-v1.json. They are not production credentials.
+# The directory administrator password is LDAP_ADMIN_PASSWORD and is not here.
+
+dn: ou=People,dc=iam,dc=test
+objectClass: top
+objectClass: organizationalUnit
+ou: People
+
+dn: ou=Groups,dc=iam,dc=test
+objectClass: top
+objectClass: organizationalUnit
+ou: Groups
+
+dn: ou=ServiceAccounts,dc=iam,dc=test
+objectClass: top
+objectClass: organizationalUnit
+ou: ServiceAccounts
+
+dn: ou=System,dc=iam,dc=test
+objectClass: top
+objectClass: organizationalUnit
+ou: System
+
+dn: cn=aggregator,ou=ServiceAccounts,dc=iam,dc=test
+objectClass: top
+objectClass: organizationalRole
+objectClass: simpleSecurityObject
+cn: aggregator
+description: Aggregation bind. Read only.
+userPassword: synthetic-lab-aggregator
+
+dn: cn=provisioner,ou=ServiceAccounts,dc=iam,dc=test
+objectClass: top
+objectClass: organizationalRole
+objectClass: simpleSecurityObject
+cn: provisioner
+description: Provisioning bind. Write under ou=People and ou=Groups.
+userPassword: synthetic-lab-provisioner
+
+dn: cn=readers,ou=Groups,dc=iam,dc=test
+objectClass: top
+objectClass: groupOfNames
+cn: readers
+description: Stock groupOfNames requires one member. The empty iamGroup class is in playground.schema and is not loaded by this image bootstrap.
+member: cn=aggregator,ou=ServiceAccounts,dc=iam,dc=test

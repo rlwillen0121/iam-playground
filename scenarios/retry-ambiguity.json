@@ -1,0 +1,19 @@
+{
+  "id": "retry-ambiguity",
+  "version": "1",
+  "fixture": "enterprise-small-v1",
+  "requiredCapabilities": ["hr.rest", "scim"],
+  "preconditions": [
+    "A create may have committed before the response was lost.",
+    "The employee number is the correlation key."
+  ],
+  "allowedChanges": [
+    "Reconcile to the existing correlated account when one is present.",
+    "Create one account only when readback shows it is absent."
+  ],
+  "protectedState": [
+    "Retry does not create a second account for the same employee number.",
+    "A lost response is not treated as proof that nothing committed."
+  ],
+  "mode": "reference|external"
+}

@@ -1,0 +1,21 @@
+{
+  "id": "joiner",
+  "version": "1",
+  "fixture": "enterprise-small-v1",
+  "requiredCapabilities": ["hr.rest", "scim"],
+  "preconditions": [
+    "The subject employee number is present in the HR feed.",
+    "That employee number has no account on the declared HTTP target."
+  ],
+  "allowedChanges": [
+    "Create one target account correlated by employee number.",
+    "Grant the current non-administrator department entitlement only."
+  ],
+  "protectedState": [
+    "No second account for the same employee number.",
+    "No administrator entitlement.",
+    "Accounts of other people stay unchanged.",
+    "Trusted bindings of other people stay unchanged."
+  ],
+  "mode": "reference|external"
+}

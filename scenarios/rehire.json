@@ -1,0 +1,21 @@
+{
+  "id": "rehire",
+  "version": "1",
+  "fixture": "enterprise-small-v1",
+  "requiredCapabilities": ["hr.rest", "scim"],
+  "preconditions": [
+    "A retained target account is explicitly correlated to the same employee number.",
+    "Earlier lifecycle grants for that account were removed."
+  ],
+  "allowedChanges": [
+    "Reuse the retained account.",
+    "Grant only the current authorized access."
+  ],
+  "protectedState": [
+    "Historical privileges are not copied back.",
+    "No duplicate account is created.",
+    "The trusted binding is not replaced.",
+    "Manual grants stay."
+  ],
+  "mode": "reference|external"
+}

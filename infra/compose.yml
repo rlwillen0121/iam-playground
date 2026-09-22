@@ -1,0 +1,239 @@
+name: iam-playground
+
+# Published ports bind to loopback only. The host browser uses 127.0.0.1:8080.
+# keycloak, target, and admin share the lab network (postgres joins it so
+# service DNS still works). The keycloak alias iam-playground.localhost
+# resolves to the keycloak container, where port 8080 is listening. The
+# issuer string stays http://iam-playground.localhost:8080/realms/iam-playground.
+# ./lab up writes infra/keycloak/generated/iam-playground-realm.json before start.
+# That import copies fixture passwords and is not committed.
+
+services:
+  postgres:
+    image: postgres:16.6
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ${POSTGRES_BOOTSTRAP_PASSWORD:-}
+      POSTGRES_DB: postgres
+      TARGET_OWNER_PASSWORD: ${TARGET_OWNER_PASSWORD:-}
+      VERIFIER_READER_PASSWORD: ${VERIFIER_READER_PASSWORD:-}
+      ADMIN_OWNER_PASSWORD: ${ADMIN_OWNER_PASSWORD:-}
+      KEYCLOAK_DB_PASSWORD: ${KEYCLOAK_DB_PASSWORD:-}
+    ports:
+      - "127.0.0.1:5432:5432"
+    networks:
+      - lab
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./postgres/init.sh:/docker-entrypoint-initdb.d/init.sh:ro
+      - ./postgres/schema.sql:/opt/lab/schema.sql:ro
+      - ./postgres/seed.sql:/opt/lab/seed.sql:ro
+      - ./postgres/packs:/opt/lab/packs:ro
+    healthcheck:
+      test:
+        - CMD-SHELL
+        - >-
+          psql -U postgres -d lab -v ON_ERROR_STOP=1 -tAc
+          "SELECT 1 FROM lab_meta WHERE generation IS NOT NULL AND fixture_id = 'enterprise-small-v1'"
+          | grep -qx 1
+      interval: 5s
+      timeout: 5s
+      retries: 20
+      start_period: 10s
+
+  keycloak:
+    image: quay.io/keycloak/keycloak:26.0.7
+    command: ["start", "--import-realm"]
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      KC_HOSTNAME: http://iam-playground.localhost:8080
+      KC_HTTP_ENABLED: "true"
+      KC_HEALTH_ENABLED: "true"
+      KC_DB: postgres
+      KC_DB_URL: jdbc:postgresql://postgres:5432/keycloak
+      KC_DB_USERNAME: keycloak
+      KC_DB_PASSWORD: ${KEYCLOAK_DB_PASSWORD:-}
+      KC_BOOTSTRAP_ADMIN_USERNAME: ${KEYCLOAK_BOOTSTRAP_ADMIN_USERNAME:-}
+      KC_BOOTSTRAP_ADMIN_PASSWORD: ${KEYCLOAK_BOOTSTRAP_ADMIN_PASSWORD:-}
+    ports:
+      - "127.0.0.1:8080:8080"
+    networks:
+      lab:
+        aliases:
+          - iam-playground.localhost
+    volumes:
+      - ./keycloak/generated/iam-playground-realm.json:/opt/keycloak/data/import/iam-playground-realm.json:ro
+    healthcheck:
+      test:
+        - CMD
+        - bash
+        - -c
+        - "{ printf 'GET /health/ready HTTP/1.0\\r\\n\\r\\n' >&0; grep -q '\"UP\"'; } 0<>/dev/tcp/127.0.0.1/9000"
+      interval: 10s
+      timeout: 5s
+      retries: 30
+      start_period: 180s
+
+  target:
+    image: iam-playground-api:local
+    build:
+      context: ..
+      dockerfile: infra/Dockerfile.api
+    command:
+      - python
+      - -m
+      - uvicorn
+      - iam_playground.targets.app:app
+      - --host
+      - 0.0.0.0
+      - --port
+      - "8090"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgresql+psycopg://target_owner:${TARGET_OWNER_PASSWORD:-}@postgres:5432/lab
+      APP_A_TOKEN: ${APP_A_TOKEN:-}
+      APP_B_TOKEN: ${APP_B_TOKEN:-}
+      SCIM_TOKEN_APP_A: ${SCIM_TOKEN_APP_A:-}
+      SCIM_TOKEN_APP_B: ${SCIM_TOKEN_APP_B:-}
+      SCIM_TOKEN_APP_A_READ: ${SCIM_TOKEN_APP_A_READ:-}
+      SCIM_TOKEN_APP_B_READ: ${SCIM_TOKEN_APP_B_READ:-}
+      REST_MODERN_TOKEN: ${REST_MODERN_TOKEN:-}
+      REST_MODERN_READ: ${REST_MODERN_READ:-}
+      REST_LEGACY_KEY: ${REST_LEGACY_KEY:-}
+      REST_LEGACY_READ: ${REST_LEGACY_READ:-}
+    networks:
+      - lab
+    ports:
+      - "127.0.0.1:8090:8090"
+    healthcheck:
+      test:
+        - CMD
+        - python
+        - -c
+        - "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8090/healthz', timeout=4).read()"
+      interval: 5s
+      timeout: 5s
+      retries: 20
+      start_period: 20s
+
+  admin:
+    image: iam-playground-api:local
+    build:
+      context: ..
+      dockerfile: infra/Dockerfile.api
+    command:
+      - python
+      - -m
+      - uvicorn
+      - iam_playground.admin.app:app
+      - --host
+      - 0.0.0.0
+      - --port
+      - "8091"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      keycloak:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgresql+psycopg://admin_owner:${ADMIN_OWNER_PASSWORD:-}@postgres:5432/lab
+      LAB_ADMIN_TOKEN: ${LAB_ADMIN_TOKEN:-}
+      OIDC_ISSUER: http://iam-playground.localhost:8080/realms/iam-playground
+      LAB_TARGET_URL: http://target:8090
+      SCIM_TOKEN_APP_A: ${SCIM_TOKEN_APP_A:-}
+      SCIM_TOKEN_APP_B: ${SCIM_TOKEN_APP_B:-}
+      MCP_AGENT_TOKEN: ${MCP_AGENT_TOKEN:-}
+      MCP_REFERENCE_TOKEN: ${MCP_REFERENCE_TOKEN:-}
+    networks:
+      - lab
+    ports:
+      - "127.0.0.1:8091:8091"
+    healthcheck:
+      test:
+        - CMD
+        - python
+        - -c
+        - "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8091/healthz', timeout=4).read()"
+      interval: 5s
+      timeout: 5s
+      retries: 20
+      start_period: 30s
+
+  workbench:
+    image: iam-playground-workbench:local
+    build:
+      context: ..
+      dockerfile: infra/Dockerfile.workbench
+    ports:
+      - "127.0.0.1:8092:80"
+    healthcheck:
+      test:
+        - CMD-SHELL
+        - wget -q -O - http://127.0.0.1/ | grep -q loopback
+      interval: 5s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
+
+  # Copied from infra/ldap/compose.fragment.yml. Paths are under ./ldap/.
+  # LDAP_ADMIN_PASSWORD comes from the environment. Ports stay on loopback.
+  openldap:
+    image: osixia/openldap:1.5.0
+    hostname: ldap.iam.test
+    command: ["--copy-service"]
+    environment:
+      LDAP_ORGANISATION: "IAM Playground"
+      LDAP_DOMAIN: "iam.test"
+      LDAP_BASE_DN: "dc=iam,dc=test"
+      LDAP_ADMIN_PASSWORD: ${LDAP_ADMIN_PASSWORD:-}
+      LDAP_CONFIG_PASSWORD: ${LDAP_CONFIG_PASSWORD:-}
+      LDAP_BACKEND: "mdb"
+      LDAP_READONLY_USER: "false"
+      LDAP_RFC2307BIS_SCHEMA: "false"
+      LDAP_TLS: "true"
+      LDAP_TLS_ENFORCE: "false"
+      LDAP_TLS_VERIFY_CLIENT: "try"
+    ports:
+      - "127.0.0.1:389:389"
+      - "127.0.0.1:636:636"
+    volumes:
+      - ./ldap/schema/playground.schema:/container/service/slapd/assets/config/bootstrap/schema/playground.schema
+      - ./ldap/seed.ldif:/container/service/slapd/assets/config/bootstrap/ldif/custom/30-seed.ldif
+      - openldap-data:/var/lib/ldap
+      - openldap-config:/etc/ldap/slapd.d
+      - openldap-certs:/container/service/slapd/assets/certs
+    networks:
+      - lab
+    healthcheck:
+      test:
+        - CMD
+        - ldapsearch
+        - -Q
+        - -LLL
+        - -Y
+        - EXTERNAL
+        - -H
+        - ldapi:///
+        - -b
+        - dc=iam,dc=test
+        - -s
+        - base
+        - "(objectClass=*)"
+        - dn
+      interval: 10s
+      timeout: 5s
+      retries: 30
+      start_period: 180s
+
+volumes:
+  pgdata:
+  openldap-data:
+  openldap-config:
+  openldap-certs:
+
+networks:
+  lab:

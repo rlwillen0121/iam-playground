@@ -27,7 +27,7 @@ When Python, TypeScript, Java, Docker, protocol, verifier, auth, or fixture code
 
 Hidden lanes stay hidden unless the user asks for audit.
 
-`lab-operator` runs `./lab` only. It does not edit the repo, does not use production IAM credentials, and does not call a model unless the user explicitly asked for a live trial. Today every lab command exits 2.
+`lab-operator` runs `./lab` only. It does not edit the repo, does not use production IAM credentials, and does not call a model unless the user explicitly asked for a live trial. `up`, `doctor`, `endpoints`, `down`, `reset`, `scenario`, `test smoke`, and `export` are runnable. `jdbc verify` reports that the JDBC client is implemented and does not open a database. That exit is not a connection. Other unknown commands exit 2. A scenario exit of 2 is INDETERMINATE, not an unavailable command. Do not treat a scenario exit as publication proof.
 
 ## Proof
 
@@ -39,7 +39,7 @@ A doc or fixture edit is orchestrate then implement. Full hidden-lane review is 
 
 ## Setup
 
-Today: `./lab doctor` (exits 2). The spec's other `./lab` commands are the intended interface and are not runnable.
+`./lab up` starts the local lab. `./lab doctor`, `./lab endpoints`, `./lab down`, `./lab reset --fixture enterprise-small-v1`, `./lab scenario`, `./lab test smoke`, and `./lab export` are runnable. `./lab jdbc verify` reports that the JDBC client is implemented and does not open a database. Other unknown commands exit 2.
 
 ## Config
 
@@ -48,4 +48,4 @@ Today: `./lab doctor` (exits 2). The spec's other `./lab` commands are the inten
 - Codex: `examples/codex.config.toml`
 - `CLAUDE.md` mirrors this file
 
-No identity-provider MCP servers are part of this repo. The optional lab MCP pack is v0.2 and is not configured.
+No Okta, Entra, Lumos, SailPoint, or ConductorOne server is part of this repo. The lab MCP routes are HTTP handlers mounted at `/mcp` on the admin process.

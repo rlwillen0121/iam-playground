@@ -1,7 +1,7 @@
 # IAM Playground
 ## Revised product and implementation specification
 
-**Status:** Proposed design. No implementation, integration, test result, or compatibility claim has been verified in this review.
+**Status:** Product design. Implementation status, including what a local session exercised, is in [README.md](../README.md) and [capabilities.md](capabilities.md). This document stays the design. It is not a test report.
 
 **Product description:** A self-hosted lab for testing identity integrations and bounded AI agents against realistic applications, with failures and independently verified access outcomes.
 

@@ -1,0 +1,13 @@
+# Lab-local schema for the iam.test directory.
+# OID arc 2.25.<UUID 6f0c2a1e-4b7d-4e9a-8c11-5d2e7a9b0c31>. Not an IANA PEN.
+# Included after core.schema. Do not define memberOf here: the memberof
+# overlay owns that operational attribute, and a second NAME is rejected.
+# Account disable is not an attribute of this schema.
+
+objectclass ( 2.25.147607469355839171281482793916856732721
+    NAME 'iamGroup'
+    DESC 'DN group that may contain zero members'
+    SUP top
+    STRUCTURAL
+    MUST cn
+    MAY ( member $ description ) )

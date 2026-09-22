@@ -1,0 +1,19 @@
+{
+  "id": "partial-failure",
+  "version": "1",
+  "fixture": "enterprise-small-v1",
+  "requiredCapabilities": ["hr.rest", "scim", "rest"],
+  "preconditions": [
+    "The scenario declares more than one HTTP target.",
+    "One declared target write fails or cannot be read back."
+  ],
+  "allowedChanges": [
+    "The target that accepts the write may show its allowed change."
+  ],
+  "protectedState": [
+    "The failed target prevents an overall pass.",
+    "A successful subset is not an overall pass.",
+    "The failed target is not reported as changed."
+  ],
+  "mode": "reference|external"
+}

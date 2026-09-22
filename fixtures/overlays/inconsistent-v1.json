@@ -1,0 +1,88 @@
+{
+  "overlayId": "inconsistent-v1",
+  "name": "inconsistent-v1",
+  "role": "bad-data overlay",
+  "separateFromHealthyBaseline": true,
+  "healthyBaseline": false,
+  "baselineFixtureId": "enterprise-small-v1",
+  "description": "Named bad-data overlay, separate from the healthy enterprise-small-v1 baseline. Synthetic records only. Not the flagship seed and not applied by the running lab.",
+  "problems": [
+    {
+      "label": "duplicate email",
+      "code": "duplicate-email",
+      "detail": "Two synthetic people share one email address.",
+      "email": "incons.shared@lab.example",
+      "userNames": [
+        "incons0001",
+        "incons0002"
+      ]
+    },
+    {
+      "label": "missing department",
+      "code": "missing-department",
+      "detail": "Synthetic person incons0003 has no department.",
+      "userName": "incons0003"
+    },
+    {
+      "label": "manager reference to an unknown employee number",
+      "code": "unknown-manager-employee-number",
+      "detail": "Synthetic person incons0004 references manager employee number E9999, which is not a person in this overlay or the healthy baseline.",
+      "userName": "incons0004",
+      "managerEmployeeNumber": "E9999"
+    }
+  ],
+  "people": [
+    {
+      "userName": "incons0001",
+      "givenName": "Synthetic",
+      "familyName": "Incons0001",
+      "email": "incons.shared@lab.example",
+      "employeeNumber": "X0001",
+      "department": "Engineering",
+      "idpAccount": true,
+      "scimUser": null,
+      "problemLabels": [
+        "duplicate email"
+      ]
+    },
+    {
+      "userName": "incons0002",
+      "givenName": "Synthetic",
+      "familyName": "Incons0002",
+      "email": "incons.shared@lab.example",
+      "employeeNumber": "X0002",
+      "department": "Sales",
+      "idpAccount": true,
+      "scimUser": null,
+      "problemLabels": [
+        "duplicate email"
+      ]
+    },
+    {
+      "userName": "incons0003",
+      "givenName": "Synthetic",
+      "familyName": "Incons0003",
+      "email": "incons0003@lab.example",
+      "employeeNumber": "X0003",
+      "idpAccount": true,
+      "scimUser": null,
+      "problemLabels": [
+        "missing department"
+      ]
+    },
+    {
+      "userName": "incons0004",
+      "givenName": "Synthetic",
+      "familyName": "Incons0004",
+      "email": "incons0004@lab.example",
+      "employeeNumber": "X0004",
+      "department": "Support",
+      "managerEmployeeNumber": "E9999",
+      "idpAccount": true,
+      "scimUser": null,
+      "problemLabels": [
+        "manager reference to an unknown employee number"
+      ]
+    }
+  ]
+}

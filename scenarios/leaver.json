@@ -1,0 +1,21 @@
+{
+  "id": "leaver",
+  "version": "1",
+  "fixture": "enterprise-small-v1",
+  "requiredCapabilities": ["hr.rest", "scim"],
+  "preconditions": [
+    "The subject has an active account on the declared HTTP target.",
+    "The subject has lifecycle-owned entitlements on that target."
+  ],
+  "allowedChanges": [
+    "Disable the HTTP account or remove access for the next protected HTTP request.",
+    "Remove obsolete lifecycle-owned entitlements."
+  ],
+  "protectedState": [
+    "Manual grants stay.",
+    "Other people's accounts stay unchanged.",
+    "This is the HTTP subset. LDAP bind denial is not claimed, and a missing directory check is not a pass."
+  ],
+  "mode": "reference|external",
+  "scope": "http"
+}

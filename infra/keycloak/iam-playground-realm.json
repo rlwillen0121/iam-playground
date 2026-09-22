@@ -1,0 +1,485 @@
+{
+  "realm": "iam-playground",
+  "enabled": true,
+  "displayName": "IAM Playground",
+  "sslRequired": "none",
+  "registrationAllowed": false,
+  "loginWithEmailAllowed": false,
+  "duplicateEmailsAllowed": false,
+  "resetPasswordAllowed": false,
+  "editUsernameAllowed": false,
+  "users": [
+    {
+      "id": "9f2670c4-32ce-5eaf-b8fe-62ca229eb3ea",
+      "username": "alice",
+      "enabled": true,
+      "email": "alice@lab.example",
+      "emailVerified": true,
+      "firstName": "Alice",
+      "lastName": "Adler"
+    },
+    {
+      "id": "15a4eb34-f553-5ab6-b952-55846ad90592",
+      "username": "bruno",
+      "enabled": true,
+      "email": "bruno@lab.example",
+      "emailVerified": true,
+      "firstName": "Bruno",
+      "lastName": "Bennett"
+    },
+    {
+      "id": "8e812a67-fd84-5b16-b3bf-9c2a34e5dbaf",
+      "username": "chloe",
+      "enabled": true,
+      "email": "chloe@lab.example",
+      "emailVerified": true,
+      "firstName": "Chloe",
+      "lastName": "Chen"
+    },
+    {
+      "id": "8240b7e7-3b09-57ea-ab96-c0033a3a7949",
+      "username": "diego",
+      "enabled": true,
+      "email": "diego@lab.example",
+      "emailVerified": true,
+      "firstName": "Diego",
+      "lastName": "Diaz"
+    },
+    {
+      "id": "1b2dd890-ce41-5ee5-845a-0a37afbcbac7",
+      "username": "elena",
+      "enabled": true,
+      "email": "elena@lab.example",
+      "emailVerified": true,
+      "firstName": "Elena",
+      "lastName": "Ellis"
+    },
+    {
+      "id": "4b8c946f-a73a-59f7-be36-fa097270d8f6",
+      "username": "farid",
+      "enabled": true,
+      "email": "farid@lab.example",
+      "emailVerified": true,
+      "firstName": "Farid",
+      "lastName": "Farouk"
+    },
+    {
+      "id": "cbd4c49a-789d-5271-9b62-1ed206334185",
+      "username": "gina",
+      "enabled": true,
+      "email": "gina@lab.example",
+      "emailVerified": true,
+      "firstName": "Gina",
+      "lastName": "Garcia"
+    },
+    {
+      "id": "a29315ea-6d99-536f-8f2c-ba9ef14e4c25",
+      "username": "hiro",
+      "enabled": true,
+      "email": "hiro@lab.example",
+      "emailVerified": true,
+      "firstName": "Hiro",
+      "lastName": "Hayashi"
+    },
+    {
+      "id": "2d38319c-ea9d-52d0-9b41-d744d634e9c5",
+      "username": "ines",
+      "enabled": true,
+      "email": "ines@lab.example",
+      "emailVerified": true,
+      "firstName": "Ines",
+      "lastName": "Ibarra"
+    },
+    {
+      "id": "cd5c0f28-2abe-5d47-aef0-bc3bf6e5cd0d",
+      "username": "jules",
+      "enabled": true,
+      "email": "jules@lab.example",
+      "emailVerified": true,
+      "firstName": "Jules",
+      "lastName": "Jensen"
+    },
+    {
+      "id": "83da766d-32cb-54b5-aed1-81f875666cb5",
+      "username": "kira",
+      "enabled": true,
+      "email": "kira@lab.example",
+      "emailVerified": true,
+      "firstName": "Kira",
+      "lastName": "Khan"
+    },
+    {
+      "id": "48f40865-c893-5be5-843f-3cdfa51afc77",
+      "username": "leo",
+      "enabled": true,
+      "email": "leo@lab.example",
+      "emailVerified": true,
+      "firstName": "Leo",
+      "lastName": "Larsen"
+    },
+    {
+      "id": "e1f741f4-7e30-5730-81a3-57eb9f16c647",
+      "username": "mina",
+      "enabled": true,
+      "email": "mina@lab.example",
+      "emailVerified": true,
+      "firstName": "Mina",
+      "lastName": "Moreau"
+    },
+    {
+      "id": "700a030b-feb9-5a68-a07e-94e647f15b70",
+      "username": "nico",
+      "enabled": true,
+      "email": "nico@lab.example",
+      "emailVerified": true,
+      "firstName": "Nico",
+      "lastName": "Novak"
+    },
+    {
+      "id": "4f518ca3-1d3d-5c4b-a587-a2c30ba705d5",
+      "username": "olga",
+      "enabled": true,
+      "email": "olga@lab.example",
+      "emailVerified": true,
+      "firstName": "Olga",
+      "lastName": "Olsen"
+    },
+    {
+      "id": "e9a5a84f-1f5b-59b4-8e99-312da054d9d0",
+      "username": "priya",
+      "enabled": true,
+      "email": "priya@lab.example",
+      "emailVerified": true,
+      "firstName": "Priya",
+      "lastName": "Patel"
+    },
+    {
+      "id": "2ed8dabf-38b7-5cd1-bc25-c191375415ed",
+      "username": "quinn",
+      "enabled": true,
+      "email": "quinn@lab.example",
+      "emailVerified": true,
+      "firstName": "Quinn",
+      "lastName": "Quintero"
+    },
+    {
+      "id": "819c38b3-3a81-5280-b7d1-3a1bbb218eca",
+      "username": "rosa",
+      "enabled": true,
+      "email": "rosa@lab.example",
+      "emailVerified": true,
+      "firstName": "Rosa",
+      "lastName": "Rossi"
+    },
+    {
+      "id": "c3660f92-0b65-5aa1-af86-c7e5aa8c76d8",
+      "username": "samir",
+      "enabled": true,
+      "email": "samir@lab.example",
+      "emailVerified": true,
+      "firstName": "Samir",
+      "lastName": "Santos"
+    },
+    {
+      "id": "4c32af12-356f-5442-9b6b-5b76ba93d260",
+      "username": "tara",
+      "enabled": true,
+      "email": "tara@lab.example",
+      "emailVerified": true,
+      "firstName": "Tara",
+      "lastName": "Tanaka"
+    },
+    {
+      "id": "3fdc1bac-d3da-5e60-997e-a754fe561fd8",
+      "username": "umar",
+      "enabled": true,
+      "email": "umar@lab.example",
+      "emailVerified": true,
+      "firstName": "Umar",
+      "lastName": "Ueda"
+    },
+    {
+      "id": "1df3c1cd-8a19-5aca-8c51-dc83788cc672",
+      "username": "vera",
+      "enabled": true,
+      "email": "vera@lab.example",
+      "emailVerified": true,
+      "firstName": "Vera",
+      "lastName": "Vogel"
+    },
+    {
+      "id": "edfa8c5d-82f4-58eb-901b-863cdf0b37bd",
+      "username": "wade",
+      "enabled": true,
+      "email": "wade@lab.example",
+      "emailVerified": true,
+      "firstName": "Wade",
+      "lastName": "Walsh"
+    },
+    {
+      "id": "41990766-a240-52bb-8b32-b2a2db087b14",
+      "username": "xia",
+      "enabled": true,
+      "email": "xia@lab.example",
+      "emailVerified": true,
+      "firstName": "Xia",
+      "lastName": "Xu"
+    },
+    {
+      "id": "a8b0c12c-8eb7-553f-8f20-afd51aa5b950",
+      "username": "yara",
+      "enabled": true,
+      "email": "yara@lab.example",
+      "emailVerified": true,
+      "firstName": "Yara",
+      "lastName": "Yilmaz"
+    },
+    {
+      "id": "197f7e20-dce8-54d8-950d-90c8bd517041",
+      "username": "zane",
+      "enabled": true,
+      "email": "zane@lab.example",
+      "emailVerified": true,
+      "firstName": "Zane",
+      "lastName": "Zimmer"
+    },
+    {
+      "id": "491c301b-3561-5692-bf76-946778cb07bb",
+      "username": "aaron",
+      "enabled": true,
+      "email": "aaron@lab.example",
+      "emailVerified": true,
+      "firstName": "Aaron",
+      "lastName": "Abbott"
+    },
+    {
+      "id": "feae96cf-da66-5439-b9ba-0a91979e2771",
+      "username": "bianca",
+      "enabled": true,
+      "email": "bianca@lab.example",
+      "emailVerified": true,
+      "firstName": "Bianca",
+      "lastName": "Berg"
+    },
+    {
+      "id": "0d89452e-a091-5499-935d-fb5c52bab18c",
+      "username": "colin",
+      "enabled": true,
+      "email": "colin@lab.example",
+      "emailVerified": true,
+      "firstName": "Colin",
+      "lastName": "Costa"
+    },
+    {
+      "id": "80328aa3-6202-59c4-988c-b433e877734f",
+      "username": "daria",
+      "enabled": true,
+      "email": "daria@lab.example",
+      "emailVerified": true,
+      "firstName": "Daria",
+      "lastName": "Dubois"
+    },
+    {
+      "id": "cbc0427f-a6ed-5684-b016-b22cd8ce0378",
+      "username": "ethan",
+      "enabled": true,
+      "email": "ethan@lab.example",
+      "emailVerified": true,
+      "firstName": "Ethan",
+      "lastName": "Evans"
+    },
+    {
+      "id": "55603246-5eab-5ceb-ac92-bb9db6854f82",
+      "username": "fatima",
+      "enabled": true,
+      "email": "fatima@lab.example",
+      "emailVerified": true,
+      "firstName": "Fatima",
+      "lastName": "Fernandes"
+    },
+    {
+      "id": "8f72bd9b-b2d7-599a-b7db-8f900c8e8243",
+      "username": "gustav",
+      "enabled": true,
+      "email": "gustav@lab.example",
+      "emailVerified": true,
+      "firstName": "Gustav",
+      "lastName": "Greco"
+    },
+    {
+      "id": "05f40ece-0540-5b73-85ee-2acba922b896",
+      "username": "hana",
+      "enabled": true,
+      "email": "hana@lab.example",
+      "emailVerified": true,
+      "firstName": "Hana",
+      "lastName": "Horvat"
+    },
+    {
+      "id": "b449ba32-14c6-59a3-a7bd-4479fa385d6e",
+      "username": "ivan",
+      "enabled": true,
+      "email": "ivan@lab.example",
+      "emailVerified": true,
+      "firstName": "Ivan",
+      "lastName": "Ivanov"
+    },
+    {
+      "id": "0b18967d-a118-5859-960e-9a6e30a4d325",
+      "username": "julia",
+      "enabled": true,
+      "email": "julia@lab.example",
+      "emailVerified": true,
+      "firstName": "Julia",
+      "lastName": "Johansson"
+    },
+    {
+      "id": "0fc37380-59cd-5293-aee4-a6e9ded1ca1f",
+      "username": "kenji",
+      "enabled": true,
+      "email": "kenji@lab.example",
+      "emailVerified": true,
+      "firstName": "Kenji",
+      "lastName": "Kobayashi"
+    },
+    {
+      "id": "f3f08e15-5e40-50ea-bd64-fb95f5dd2a44",
+      "username": "lina",
+      "enabled": true,
+      "email": "lina@lab.example",
+      "emailVerified": true,
+      "firstName": "Lina",
+      "lastName": "Lind"
+    },
+    {
+      "id": "52ec4e07-085f-594c-b71e-d3777c100a5b",
+      "username": "marco",
+      "enabled": true,
+      "email": "marco@lab.example",
+      "emailVerified": true,
+      "firstName": "Marco",
+      "lastName": "Martin"
+    },
+    {
+      "id": "c3984447-93f8-5179-b34c-2cf56fd69b6a",
+      "username": "nadia",
+      "enabled": true,
+      "email": "nadia@lab.example",
+      "emailVerified": true,
+      "firstName": "Nadia",
+      "lastName": "Nielsen"
+    },
+    {
+      "id": "a04ccee7-9137-5b5c-abfe-0f7d5805fc98",
+      "username": "oscar",
+      "enabled": true,
+      "email": "oscar@lab.example",
+      "emailVerified": true,
+      "firstName": "Oscar",
+      "lastName": "Ortega"
+    },
+    {
+      "id": "b3d929c8-259b-5f0e-b179-7f8685c25efc",
+      "username": "paula",
+      "enabled": true,
+      "email": "paula@lab.example",
+      "emailVerified": true,
+      "firstName": "Paula",
+      "lastName": "Petrov"
+    },
+    {
+      "id": "9c11c209-da09-506a-8536-0a73a559446f",
+      "username": "rafael",
+      "enabled": true,
+      "email": "rafael@lab.example",
+      "emailVerified": true,
+      "firstName": "Rafael",
+      "lastName": "Reyes"
+    },
+    {
+      "id": "a96b4bba-a1e2-510d-9f50-0aa0ae960ff6",
+      "username": "sofia",
+      "enabled": true,
+      "email": "sofia@lab.example",
+      "emailVerified": true,
+      "firstName": "Sofia",
+      "lastName": "Silva"
+    },
+    {
+      "id": "1af7f255-7473-5a92-88eb-47de8b85d55b",
+      "username": "tomas",
+      "enabled": true,
+      "email": "tomas@lab.example",
+      "emailVerified": true,
+      "firstName": "Tomas",
+      "lastName": "Torres"
+    },
+    {
+      "id": "4b6b53ae-3985-5241-939e-84dedef0eb7a",
+      "username": "ursula",
+      "enabled": true,
+      "email": "ursula@lab.example",
+      "emailVerified": true,
+      "firstName": "Ursula",
+      "lastName": "Urban"
+    },
+    {
+      "id": "2dd67343-ba68-504b-ada8-41e633b19adc",
+      "username": "victor",
+      "enabled": true,
+      "email": "victor@lab.example",
+      "emailVerified": true,
+      "firstName": "Victor",
+      "lastName": "Varga"
+    },
+    {
+      "id": "76d3fc71-c9b2-58fa-afe2-0ab3c237632b",
+      "username": "willa",
+      "enabled": true,
+      "email": "willa@lab.example",
+      "emailVerified": true,
+      "firstName": "Willa",
+      "lastName": "Weber"
+    },
+    {
+      "id": "6dc12213-2fa3-5807-8b37-8407902661c1",
+      "username": "xavier",
+      "enabled": true,
+      "email": "xavier@lab.example",
+      "emailVerified": true,
+      "firstName": "Xavier",
+      "lastName": "Xiong"
+    },
+    {
+      "id": "a6971162-4d03-5b7d-8619-bfcc90a745b3",
+      "username": "yasmin",
+      "enabled": true,
+      "email": "yasmin@lab.example",
+      "emailVerified": true,
+      "firstName": "Yasmin",
+      "lastName": "Young"
+    }
+  ],
+  "clients": [
+    {
+      "id": "edc10ee5-9d93-5e56-a10a-2deb2ab000c6",
+      "clientId": "demo-app",
+      "enabled": true,
+      "protocol": "openid-connect",
+      "publicClient": true,
+      "standardFlowEnabled": true,
+      "implicitFlowEnabled": false,
+      "directAccessGrantsEnabled": false,
+      "serviceAccountsEnabled": false,
+      "redirectUris": [
+        "http://127.0.0.1:8090/session/callback"
+      ],
+      "webOrigins": [
+        "http://127.0.0.1:8092"
+      ],
+      "attributes": {
+        "pkce.code.challenge.method": "S256"
+      }
+    }
+  ]
+}

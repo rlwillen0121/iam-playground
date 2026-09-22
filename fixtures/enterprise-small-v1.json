@@ -1,0 +1,609 @@
+{
+  "fixtureId": "enterprise-small-v1",
+  "applications": [
+    "app-a",
+    "app-b"
+  ],
+  "entitlements": [
+    {
+      "name": "Readers",
+      "description": "Read application records"
+    },
+    {
+      "name": "Administrators",
+      "description": "Administer application records"
+    },
+    {
+      "name": "Editors",
+      "description": "Edit application records"
+    },
+    {
+      "name": "Auditors",
+      "description": "Review audit records"
+    },
+    {
+      "name": "Engineering",
+      "description": "Engineering entitlement"
+    },
+    {
+      "name": "Sales",
+      "description": "Sales entitlement"
+    },
+    {
+      "name": "Support",
+      "description": "Support entitlement"
+    },
+    {
+      "name": "Finance",
+      "description": "Finance entitlement"
+    },
+    {
+      "name": "Contractors",
+      "description": "Contractor entitlement"
+    },
+    {
+      "name": "Operators",
+      "description": "Operator entitlement"
+    },
+    {
+      "name": "Viewers",
+      "description": "View application records"
+    },
+    {
+      "name": "Billing",
+      "description": "Billing entitlement"
+    }
+  ],
+  "people": [
+    {
+      "userName": "alice",
+      "givenName": "Alice",
+      "familyName": "Adler",
+      "email": "alice@lab.example",
+      "employeeNumber": "E1001",
+      "department": "Engineering",
+      "password": "synthetic-lab-alice",
+      "idpAccount": true,
+      "scimUser": null
+    },
+    {
+      "userName": "bruno",
+      "givenName": "Bruno",
+      "familyName": "Bennett",
+      "email": "bruno@lab.example",
+      "employeeNumber": "E1002",
+      "department": "Sales",
+      "password": "synthetic-lab-bruno",
+      "idpAccount": true,
+      "scimUser": null
+    },
+    {
+      "userName": "chloe",
+      "givenName": "Chloe",
+      "familyName": "Chen",
+      "email": "chloe@lab.example",
+      "employeeNumber": "E1003",
+      "department": "Support",
+      "password": "synthetic-lab-chloe",
+      "idpAccount": true,
+      "scimUser": null
+    },
+    {
+      "userName": "diego",
+      "givenName": "Diego",
+      "familyName": "Diaz",
+      "email": "diego@lab.example",
+      "employeeNumber": "E1004",
+      "department": "Finance",
+      "password": "synthetic-lab-diego",
+      "idpAccount": true,
+      "scimUser": null
+    },
+    {
+      "userName": "elena",
+      "givenName": "Elena",
+      "familyName": "Ellis",
+      "email": "elena@lab.example",
+      "employeeNumber": "E1005",
+      "department": "People",
+      "password": "synthetic-lab-elena",
+      "idpAccount": true,
+      "scimUser": null
+    },
+    {
+      "userName": "farid",
+      "givenName": "Farid",
+      "familyName": "Farouk",
+      "email": "farid@lab.example",
+      "employeeNumber": "E1006",
+      "department": "Operations",
+      "password": "synthetic-lab-farid",
+      "idpAccount": true,
+      "scimUser": null
+    },
+    {
+      "userName": "gina",
+      "givenName": "Gina",
+      "familyName": "Garcia",
+      "email": "gina@lab.example",
+      "employeeNumber": "E1007",
+      "department": "Engineering",
+      "password": "synthetic-lab-gina",
+      "idpAccount": true,
+      "scimUser": null
+    },
+    {
+      "userName": "hiro",
+      "givenName": "Hiro",
+      "familyName": "Hayashi",
+      "email": "hiro@lab.example",
+      "employeeNumber": "E1008",
+      "department": "Sales",
+      "password": "synthetic-lab-hiro",
+      "idpAccount": true,
+      "scimUser": null
+    },
+    {
+      "userName": "ines",
+      "givenName": "Ines",
+      "familyName": "Ibarra",
+      "email": "ines@lab.example",
+      "employeeNumber": "E1009",
+      "department": "Support",
+      "password": "synthetic-lab-ines",
+      "idpAccount": true,
+      "scimUser": null
+    },
+    {
+      "userName": "jules",
+      "givenName": "Jules",
+      "familyName": "Jensen",
+      "email": "jules@lab.example",
+      "employeeNumber": "E1010",
+      "department": "Finance",
+      "password": "synthetic-lab-jules",
+      "idpAccount": true,
+      "scimUser": null
+    },
+    {
+      "userName": "kira",
+      "givenName": "Kira",
+      "familyName": "Khan",
+      "email": "kira@lab.example",
+      "employeeNumber": "E1011",
+      "department": "People",
+      "password": "synthetic-lab-kira",
+      "idpAccount": true,
+      "scimUser": null
+    },
+    {
+      "userName": "leo",
+      "givenName": "Leo",
+      "familyName": "Larsen",
+      "email": "leo@lab.example",
+      "employeeNumber": "E1012",
+      "department": "Operations",
+      "password": "synthetic-lab-leo",
+      "idpAccount": true,
+      "scimUser": null
+    },
+    {
+      "userName": "mina",
+      "givenName": "Mina",
+      "familyName": "Moreau",
+      "email": "mina@lab.example",
+      "employeeNumber": "E1013",
+      "department": "Engineering",
+      "password": "synthetic-lab-mina",
+      "idpAccount": true,
+      "scimUser": null
+    },
+    {
+      "userName": "nico",
+      "givenName": "Nico",
+      "familyName": "Novak",
+      "email": "nico@lab.example",
+      "employeeNumber": "E1014",
+      "department": "Sales",
+      "password": "synthetic-lab-nico",
+      "idpAccount": true,
+      "scimUser": null
+    },
+    {
+      "userName": "olga",
+      "givenName": "Olga",
+      "familyName": "Olsen",
+      "email": "olga@lab.example",
+      "employeeNumber": "E1015",
+      "department": "Support",
+      "password": "synthetic-lab-olga",
+      "idpAccount": true,
+      "scimUser": null
+    },
+    {
+      "userName": "priya",
+      "givenName": "Priya",
+      "familyName": "Patel",
+      "email": "priya@lab.example",
+      "employeeNumber": "E1016",
+      "department": "Finance",
+      "password": "synthetic-lab-priya",
+      "idpAccount": true,
+      "scimUser": null
+    },
+    {
+      "userName": "quinn",
+      "givenName": "Quinn",
+      "familyName": "Quintero",
+      "email": "quinn@lab.example",
+      "employeeNumber": "E1017",
+      "department": "People",
+      "password": "synthetic-lab-quinn",
+      "idpAccount": true,
+      "scimUser": null
+    },
+    {
+      "userName": "rosa",
+      "givenName": "Rosa",
+      "familyName": "Rossi",
+      "email": "rosa@lab.example",
+      "employeeNumber": "E1018",
+      "department": "Operations",
+      "password": "synthetic-lab-rosa",
+      "idpAccount": true,
+      "scimUser": null
+    },
+    {
+      "userName": "samir",
+      "givenName": "Samir",
+      "familyName": "Santos",
+      "email": "samir@lab.example",
+      "employeeNumber": "E1019",
+      "department": "Engineering",
+      "password": "synthetic-lab-samir",
+      "idpAccount": true,
+      "scimUser": null
+    },
+    {
+      "userName": "tara",
+      "givenName": "Tara",
+      "familyName": "Tanaka",
+      "email": "tara@lab.example",
+      "employeeNumber": "E1020",
+      "department": "Sales",
+      "password": "synthetic-lab-tara",
+      "idpAccount": true,
+      "scimUser": null
+    },
+    {
+      "userName": "umar",
+      "givenName": "Umar",
+      "familyName": "Ueda",
+      "email": "umar@lab.example",
+      "employeeNumber": "E1021",
+      "department": "Support",
+      "password": "synthetic-lab-umar",
+      "idpAccount": true,
+      "scimUser": null
+    },
+    {
+      "userName": "vera",
+      "givenName": "Vera",
+      "familyName": "Vogel",
+      "email": "vera@lab.example",
+      "employeeNumber": "E1022",
+      "department": "Finance",
+      "password": "synthetic-lab-vera",
+      "idpAccount": true,
+      "scimUser": null
+    },
+    {
+      "userName": "wade",
+      "givenName": "Wade",
+      "familyName": "Walsh",
+      "email": "wade@lab.example",
+      "employeeNumber": "E1023",
+      "department": "People",
+      "password": "synthetic-lab-wade",
+      "idpAccount": true,
+      "scimUser": null
+    },
+    {
+      "userName": "xia",
+      "givenName": "Xia",
+      "familyName": "Xu",
+      "email": "xia@lab.example",
+      "employeeNumber": "E1024",
+      "department": "Operations",
+      "password": "synthetic-lab-xia",
+      "idpAccount": true,
+      "scimUser": null
+    },
+    {
+      "userName": "yara",
+      "givenName": "Yara",
+      "familyName": "Yilmaz",
+      "email": "yara@lab.example",
+      "employeeNumber": "E1025",
+      "department": "Engineering",
+      "password": "synthetic-lab-yara",
+      "idpAccount": true,
+      "scimUser": null
+    },
+    {
+      "userName": "zane",
+      "givenName": "Zane",
+      "familyName": "Zimmer",
+      "email": "zane@lab.example",
+      "employeeNumber": "E1026",
+      "department": "Sales",
+      "password": "synthetic-lab-zane",
+      "idpAccount": true,
+      "scimUser": null
+    },
+    {
+      "userName": "aaron",
+      "givenName": "Aaron",
+      "familyName": "Abbott",
+      "email": "aaron@lab.example",
+      "employeeNumber": "E1027",
+      "department": "Support",
+      "password": "synthetic-lab-aaron",
+      "idpAccount": true,
+      "scimUser": null
+    },
+    {
+      "userName": "bianca",
+      "givenName": "Bianca",
+      "familyName": "Berg",
+      "email": "bianca@lab.example",
+      "employeeNumber": "E1028",
+      "department": "Finance",
+      "password": "synthetic-lab-bianca",
+      "idpAccount": true,
+      "scimUser": null
+    },
+    {
+      "userName": "colin",
+      "givenName": "Colin",
+      "familyName": "Costa",
+      "email": "colin@lab.example",
+      "employeeNumber": "E1029",
+      "department": "People",
+      "password": "synthetic-lab-colin",
+      "idpAccount": true,
+      "scimUser": null
+    },
+    {
+      "userName": "daria",
+      "givenName": "Daria",
+      "familyName": "Dubois",
+      "email": "daria@lab.example",
+      "employeeNumber": "E1030",
+      "department": "Operations",
+      "password": "synthetic-lab-daria",
+      "idpAccount": true,
+      "scimUser": null
+    },
+    {
+      "userName": "ethan",
+      "givenName": "Ethan",
+      "familyName": "Evans",
+      "email": "ethan@lab.example",
+      "employeeNumber": "E1031",
+      "department": "Engineering",
+      "password": "synthetic-lab-ethan",
+      "idpAccount": true,
+      "scimUser": null
+    },
+    {
+      "userName": "fatima",
+      "givenName": "Fatima",
+      "familyName": "Fernandes",
+      "email": "fatima@lab.example",
+      "employeeNumber": "E1032",
+      "department": "Sales",
+      "password": "synthetic-lab-fatima",
+      "idpAccount": true,
+      "scimUser": null
+    },
+    {
+      "userName": "gustav",
+      "givenName": "Gustav",
+      "familyName": "Greco",
+      "email": "gustav@lab.example",
+      "employeeNumber": "E1033",
+      "department": "Support",
+      "password": "synthetic-lab-gustav",
+      "idpAccount": true,
+      "scimUser": null
+    },
+    {
+      "userName": "hana",
+      "givenName": "Hana",
+      "familyName": "Horvat",
+      "email": "hana@lab.example",
+      "employeeNumber": "E1034",
+      "department": "Finance",
+      "password": "synthetic-lab-hana",
+      "idpAccount": true,
+      "scimUser": null
+    },
+    {
+      "userName": "ivan",
+      "givenName": "Ivan",
+      "familyName": "Ivanov",
+      "email": "ivan@lab.example",
+      "employeeNumber": "E1035",
+      "department": "People",
+      "password": "synthetic-lab-ivan",
+      "idpAccount": true,
+      "scimUser": null
+    },
+    {
+      "userName": "julia",
+      "givenName": "Julia",
+      "familyName": "Johansson",
+      "email": "julia@lab.example",
+      "employeeNumber": "E1036",
+      "department": "Operations",
+      "password": "synthetic-lab-julia",
+      "idpAccount": true,
+      "scimUser": null
+    },
+    {
+      "userName": "kenji",
+      "givenName": "Kenji",
+      "familyName": "Kobayashi",
+      "email": "kenji@lab.example",
+      "employeeNumber": "E1037",
+      "department": "Engineering",
+      "password": "synthetic-lab-kenji",
+      "idpAccount": true,
+      "scimUser": null
+    },
+    {
+      "userName": "lina",
+      "givenName": "Lina",
+      "familyName": "Lind",
+      "email": "lina@lab.example",
+      "employeeNumber": "E1038",
+      "department": "Sales",
+      "password": "synthetic-lab-lina",
+      "idpAccount": true,
+      "scimUser": null
+    },
+    {
+      "userName": "marco",
+      "givenName": "Marco",
+      "familyName": "Martin",
+      "email": "marco@lab.example",
+      "employeeNumber": "E1039",
+      "department": "Support",
+      "password": "synthetic-lab-marco",
+      "idpAccount": true,
+      "scimUser": null
+    },
+    {
+      "userName": "nadia",
+      "givenName": "Nadia",
+      "familyName": "Nielsen",
+      "email": "nadia@lab.example",
+      "employeeNumber": "E1040",
+      "department": "Finance",
+      "password": "synthetic-lab-nadia",
+      "idpAccount": true,
+      "scimUser": null
+    },
+    {
+      "userName": "oscar",
+      "givenName": "Oscar",
+      "familyName": "Ortega",
+      "email": "oscar@lab.example",
+      "employeeNumber": "E1041",
+      "department": "People",
+      "password": "synthetic-lab-oscar",
+      "idpAccount": true,
+      "scimUser": null
+    },
+    {
+      "userName": "paula",
+      "givenName": "Paula",
+      "familyName": "Petrov",
+      "email": "paula@lab.example",
+      "employeeNumber": "E1042",
+      "department": "Operations",
+      "password": "synthetic-lab-paula",
+      "idpAccount": true,
+      "scimUser": null
+    },
+    {
+      "userName": "rafael",
+      "givenName": "Rafael",
+      "familyName": "Reyes",
+      "email": "rafael@lab.example",
+      "employeeNumber": "E1043",
+      "department": "Engineering",
+      "password": "synthetic-lab-rafael",
+      "idpAccount": true,
+      "scimUser": null
+    },
+    {
+      "userName": "sofia",
+      "givenName": "Sofia",
+      "familyName": "Silva",
+      "email": "sofia@lab.example",
+      "employeeNumber": "E1044",
+      "department": "Sales",
+      "password": "synthetic-lab-sofia",
+      "idpAccount": true,
+      "scimUser": null
+    },
+    {
+      "userName": "tomas",
+      "givenName": "Tomas",
+      "familyName": "Torres",
+      "email": "tomas@lab.example",
+      "employeeNumber": "E1045",
+      "department": "Support",
+      "password": "synthetic-lab-tomas",
+      "idpAccount": true,
+      "scimUser": null
+    },
+    {
+      "userName": "ursula",
+      "givenName": "Ursula",
+      "familyName": "Urban",
+      "email": "ursula@lab.example",
+      "employeeNumber": "E1046",
+      "department": "Finance",
+      "password": "synthetic-lab-ursula",
+      "idpAccount": true,
+      "scimUser": null
+    },
+    {
+      "userName": "victor",
+      "givenName": "Victor",
+      "familyName": "Varga",
+      "email": "victor@lab.example",
+      "employeeNumber": "E1047",
+      "department": "People",
+      "password": "synthetic-lab-victor",
+      "idpAccount": true,
+      "scimUser": null
+    },
+    {
+      "userName": "willa",
+      "givenName": "Willa",
+      "familyName": "Weber",
+      "email": "willa@lab.example",
+      "employeeNumber": "E1048",
+      "department": "Operations",
+      "password": "synthetic-lab-willa",
+      "idpAccount": true,
+      "scimUser": null
+    },
+    {
+      "userName": "xavier",
+      "givenName": "Xavier",
+      "familyName": "Xiong",
+      "email": "xavier@lab.example",
+      "employeeNumber": "E1049",
+      "department": "Engineering",
+      "password": "synthetic-lab-xavier",
+      "idpAccount": true,
+      "scimUser": null
+    },
+    {
+      "userName": "yasmin",
+      "givenName": "Yasmin",
+      "familyName": "Young",
+      "email": "yasmin@lab.example",
+      "employeeNumber": "E1050",
+      "department": "Sales",
+      "password": "synthetic-lab-yasmin",
+      "idpAccount": true,
+      "scimUser": null
+    }
+  ]
+}

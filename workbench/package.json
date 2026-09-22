@@ -1,0 +1,9 @@
+{
+  "name": "iam-playground-workbench",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Static checkpoint page. No runtime dependencies.",
+  "scripts": {
+    "build": "node build.mjs"
+  }
+}

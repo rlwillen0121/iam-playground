@@ -1,0 +1,24 @@
+{
+  "id": "mover-engineering-to-sales",
+  "version": "1",
+  "fixture": "enterprise-small-v1",
+  "requiredCapabilities": ["hr.rest", "scim"],
+  "preconditions": [
+    "The subject is one Engineering person in the HR feed, correlated to one target account.",
+    "The subject has a lifecycle-owned Engineering entitlement.",
+    "The subject also has a manual grant, and may have an entitlement with both owners."
+  ],
+  "allowedChanges": [
+    "Set the HR department from Engineering to Sales.",
+    "Remove the obsolete lifecycle-owned Engineering entitlement.",
+    "Grant the current lifecycle-owned Sales entitlement."
+  ],
+  "protectedState": [
+    "Manual grants stay.",
+    "An entitlement that still has a manual owner keeps its native membership.",
+    "The employee number stays the same.",
+    "No administrator entitlement is added.",
+    "Preexisting access is not adopted as lifecycle-owned."
+  ],
+  "mode": "reference|external"
+}

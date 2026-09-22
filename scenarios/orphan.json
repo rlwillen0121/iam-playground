@@ -1,0 +1,18 @@
+{
+  "id": "orphan",
+  "version": "1",
+  "fixture": "enterprise-small-v1",
+  "requiredCapabilities": ["hr.rest", "scim"],
+  "preconditions": [
+    "A target account references an employee number that is absent from the HR feed, or an HR managerEmployeeNumber references an unknown employee number."
+  ],
+  "allowedChanges": [
+    "Report the orphan."
+  ],
+  "protectedState": [
+    "The orphan account is not deleted.",
+    "No HR person is created from the target account.",
+    "An HR update does not change the target account."
+  ],
+  "mode": "reference|external"
+}

@@ -1,0 +1,10 @@
+.git
+.env
+.env.*
+**/.env
+infra/keycloak/generated
+**/__pycache__
+**/*.pyc
+.venv
+node_modules
+workbench/dist

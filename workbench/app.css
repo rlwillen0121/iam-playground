@@ -1,0 +1,169 @@
+:root {
+  color-scheme: light;
+  --ink: #1c1917;
+  --muted: #57534e;
+  --line: #d6d3d1;
+  --paper: #fafaf9;
+  --notice: #fff7ed;
+  --notice-ink: #9a3412;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+body {
+  margin: 0;
+  padding: 2rem 1.25rem 3rem;
+  color: var(--ink);
+  background: var(--paper);
+  font: 16px/1.5 ui-sans-serif, system-ui, sans-serif;
+}
+
+header,
+main {
+  max-width: 52rem;
+  margin: 0 auto;
+}
+
+h1,
+h2,
+h3 {
+  font-weight: 650;
+  line-height: 1.2;
+}
+
+h1 {
+  margin: 0 0 0.75rem;
+  font-size: 1.75rem;
+}
+
+h2 {
+  margin: 0 0 0.5rem;
+  font-size: 1.05rem;
+}
+
+h3 {
+  margin: 0.25rem 0 0.35rem;
+  font-size: 0.95rem;
+}
+
+p,
+dd {
+  margin: 0 0 0.75rem;
+}
+
+header p {
+  margin: 0 0 1rem;
+}
+
+nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 0 0 1.25rem;
+}
+
+button {
+  margin: 0;
+  padding: 0.35rem 0.7rem;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: #fff;
+  color: var(--ink);
+  font: inherit;
+  cursor: pointer;
+}
+
+nav button[aria-pressed="true"] {
+  border-color: var(--ink);
+  background: var(--ink);
+  color: #fff;
+}
+
+button:focus-visible,
+a:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 2px;
+}
+
+#load-users {
+  margin: 0 0 0.75rem;
+}
+
+section {
+  margin: 0 0 1rem;
+  padding: 1rem 1rem 0.25rem;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fff;
+}
+
+.notice {
+  padding: 0.6rem 0.75rem;
+  border-radius: 6px;
+  color: var(--notice-ink);
+  background: var(--notice);
+}
+
+.unavailable {
+  color: var(--notice-ink);
+}
+
+dl {
+  margin: 0;
+}
+
+dt {
+  font-weight: 650;
+}
+
+a {
+  color: inherit;
+}
+
+code,
+.scenario-id,
+.endpoints li {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.92rem;
+}
+
+ul {
+  margin: 0 0 0.75rem;
+  padding: 0;
+  list-style: none;
+}
+
+li {
+  margin: 0 0 0.35rem;
+}
+
+.endpoints li,
+pre {
+  overflow-wrap: anywhere;
+}
+
+#scenario-list li {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.35rem 0.75rem;
+}
+
+pre {
+  max-height: 32rem;
+  margin: 0 0 0.75rem;
+  padding: 0.75rem;
+  overflow: auto;
+  white-space: pre-wrap;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--paper);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.85rem;
+}

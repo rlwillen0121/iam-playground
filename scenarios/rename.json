@@ -1,0 +1,20 @@
+{
+  "id": "rename",
+  "version": "1",
+  "fixture": "enterprise-small-v1",
+  "requiredCapabilities": ["hr.rest", "scim"],
+  "preconditions": [
+    "One HR person exists for the subject employee number.",
+    "At most one correlated target account exists for that employee number."
+  ],
+  "allowedChanges": [
+    "Change userName and email on the HR person and the correlated account."
+  ],
+  "protectedState": [
+    "The employee number stays the same.",
+    "Rename does not create a second person.",
+    "Rename does not create a second account.",
+    "The trusted binding is not replaced."
+  ],
+  "mode": "reference|external"
+}

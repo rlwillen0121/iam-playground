@@ -1,20 +1,317 @@
 #!/usr/bin/env bash
-# Every invocation exits 2. No pack is shipped and no service is started.
+# Local lab entry point. Does not print secret values.
 set -euo pipefail
 
-cat >&2 <<'EOF'
+ROOT="$(cd "$(dirname "$0")" && pwd)"
+cd "$ROOT"
+
+export LAB_ROOT="$ROOT"
+export PYTHONDONTWRITEBYTECODE=1
+export PYTHONPATH="$ROOT/backend${PYTHONPATH:+:$PYTHONPATH}"
+
+py() {
+  if [[ -x "$ROOT/.venv/bin/python" ]]; then
+    "$ROOT/.venv/bin/python" "$@"
+  else
+    python3 "$@"
+  fi
+}
+
+usage() {
+  cat >&2 <<'EOF'
 Usage: ./lab <command> [args]
 
   up
+  down [--destroy-data]
   doctor
   endpoints
-  scenario
-  jdbc
-  test
-  export
-  reset
-  down
+  reset --fixture enterprise-small-v1
+  scenario list
+  scenario run scim-login-revoke --mode reference
+  scenario verify <run-id>
+  test smoke
+  export <run-id> --format json
+  jdbc verify
 
-No pack has shipped. v0.1 (SCIM, Keycloak, demo application, fixtures, CLI, minimal workbench, verifier) is planned. This command does not start services.
+scenario list exits 0. It names scim-login-revoke and each scenarios/*.json id.
+transaction-rollback is listed as unavailable.
+scenario run exits 0 only for verifier PASSED, 1 for FAILED, 2 for INDETERMINATE.
+test smoke exits 0 only when target and admin are ready. It does not say PASSED.
+jdbc verify exits 0 when the JDBC client source is present. It does not open a database.
+Other unknown commands exit 2.
 EOF
-exit 2
+}
+
+compose() {
+  local args=(docker compose --project-name iam-playground -f "$ROOT/infra/compose.yml")
+  if [[ -f "$ROOT/.env" ]]; then
+    args+=(--env-file "$ROOT/.env")
+  fi
+  "${args[@]}" "$@"
+}
+
+require_docker() {
+  if ! command -v docker >/dev/null 2>&1; then
+    echo "docker: the docker CLI is missing. Next: install Docker and rerun ./lab up" >&2
+    exit 1
+  fi
+}
+
+env_value() {
+  local key="$1"
+  awk -F= -v k="$key" '$1 == k { sub(/^[^=]*=/, ""); print; exit }' "$ROOT/.env"
+}
+
+require_env_keys() {
+  local key value
+  for key in "$@"; do
+    value="$(env_value "$key")"
+    if [[ -z "$value" ]]; then
+      echo "env: ${key} is empty. Next: restore it in .env, or if this volume is disposable run ./lab down --destroy-data and delete .env before ./lab up" >&2
+      exit 1
+    fi
+  done
+}
+
+write_env() {
+  if ! command -v openssl >/dev/null 2>&1; then
+    echo "openssl: cannot generate lab secrets. Next: install openssl" >&2
+    exit 1
+  fi
+  umask 077
+  local tmp
+  tmp="$(mktemp "$ROOT/.env.tmp.XXXXXX")"
+  {
+    printf 'LAB_ADMIN_TOKEN=%s\n' "$(openssl rand -hex 32)"
+    printf 'POSTGRES_BOOTSTRAP_PASSWORD=%s\n' "$(openssl rand -hex 32)"
+    printf 'TARGET_OWNER_PASSWORD=%s\n' "$(openssl rand -hex 32)"
+    printf 'VERIFIER_READER_PASSWORD=%s\n' "$(openssl rand -hex 32)"
+    printf 'ADMIN_OWNER_PASSWORD=%s\n' "$(openssl rand -hex 32)"
+    printf 'KEYCLOAK_DB_PASSWORD=%s\n' "$(openssl rand -hex 32)"
+    printf 'KEYCLOAK_BOOTSTRAP_ADMIN_USERNAME=%s\n' "admin"
+    printf 'KEYCLOAK_BOOTSTRAP_ADMIN_PASSWORD=%s\n' "$(openssl rand -hex 32)"
+    printf 'APP_A_TOKEN=%s\n' "$(openssl rand -hex 32)"
+    printf 'APP_B_TOKEN=%s\n' "$(openssl rand -hex 32)"
+    printf 'SCIM_TOKEN_APP_A=%s\n' "$(openssl rand -hex 32)"
+    printf 'SCIM_TOKEN_APP_B=%s\n' "$(openssl rand -hex 32)"
+    printf 'SCIM_TOKEN_APP_A_READ=%s\n' "$(openssl rand -hex 32)"
+    printf 'SCIM_TOKEN_APP_B_READ=%s\n' "$(openssl rand -hex 32)"
+    printf 'LDAP_ADMIN_PASSWORD=%s\n' "$(openssl rand -hex 32)"
+    printf 'LDAP_CONFIG_PASSWORD=%s\n' "$(openssl rand -hex 32)"
+    printf 'REST_MODERN_TOKEN=%s\n' "$(openssl rand -hex 32)"
+    printf 'REST_MODERN_READ=%s\n' "$(openssl rand -hex 32)"
+    printf 'REST_LEGACY_KEY=%s\n' "$(openssl rand -hex 32)"
+    printf 'REST_LEGACY_READ=%s\n' "$(openssl rand -hex 32)"
+    printf 'MCP_AGENT_TOKEN=%s\n' "$(openssl rand -hex 32)"
+    printf 'MCP_REFERENCE_TOKEN=%s\n' "$(openssl rand -hex 32)"
+  } >"$tmp"
+  mv "$tmp" "$ROOT/.env"
+  chmod 600 "$ROOT/.env"
+  echo "created .env"
+}
+
+env_has_key() {
+  local key="$1"
+  [[ -f "$ROOT/.env" ]] || return 1
+  awk -F= -v k="$key" '$1 == k { found=1; exit } END { exit (found ? 0 : 1) }' "$ROOT/.env"
+}
+
+# Append a generated value only when the key is absent. Never print the value.
+append_generated_secret() {
+  local key="$1"
+  if [[ ! -f "$ROOT/.env" ]]; then
+    return 0
+  fi
+  if env_has_key "$key"; then
+    return 0
+  fi
+  if ! command -v openssl >/dev/null 2>&1; then
+    echo "openssl: cannot generate lab secrets. Next: install openssl" >&2
+    exit 1
+  fi
+  umask 077
+  local value tmp
+  value="$(openssl rand -hex 32)"
+  tmp="$(mktemp "$ROOT/.env.tmp.XXXXXX")"
+  cat "$ROOT/.env" >"$tmp"
+  printf '\n%s=%s\n' "$key" "$value" >>"$tmp"
+  unset value
+  mv "$tmp" "$ROOT/.env"
+  chmod 600 "$ROOT/.env"
+  echo "updated .env"
+}
+
+cmd_up() {
+  if [[ $# -ne 0 ]]; then
+    echo "up: unknown argument" >&2
+    exit 2
+  fi
+  require_docker
+  if [[ ! -f "$ROOT/.env" ]]; then
+    write_env
+  fi
+  append_generated_secret LDAP_ADMIN_PASSWORD
+  append_generated_secret LDAP_CONFIG_PASSWORD
+  append_generated_secret REST_MODERN_TOKEN
+  append_generated_secret REST_MODERN_READ
+  append_generated_secret REST_LEGACY_KEY
+  append_generated_secret REST_LEGACY_READ
+  append_generated_secret MCP_AGENT_TOKEN
+  append_generated_secret MCP_REFERENCE_TOKEN
+  require_env_keys \
+    LAB_ADMIN_TOKEN \
+    POSTGRES_BOOTSTRAP_PASSWORD \
+    TARGET_OWNER_PASSWORD \
+    VERIFIER_READER_PASSWORD \
+    ADMIN_OWNER_PASSWORD \
+    KEYCLOAK_DB_PASSWORD \
+    KEYCLOAK_BOOTSTRAP_ADMIN_USERNAME \
+    KEYCLOAK_BOOTSTRAP_ADMIN_PASSWORD \
+    APP_A_TOKEN \
+    APP_B_TOKEN \
+    SCIM_TOKEN_APP_A \
+    SCIM_TOKEN_APP_B \
+    SCIM_TOKEN_APP_A_READ \
+    SCIM_TOKEN_APP_B_READ \
+    REST_MODERN_TOKEN \
+    REST_MODERN_READ \
+    REST_LEGACY_KEY \
+    REST_LEGACY_READ \
+    MCP_AGENT_TOKEN \
+    MCP_REFERENCE_TOKEN
+  py -m iam_playground.materialize
+  local import_file="$ROOT/infra/keycloak/generated/iam-playground-realm.json"
+  if [[ ! -f "$import_file" ]]; then
+    echo "keycloak: realm import was not generated. Next: ./lab up" >&2
+    exit 1
+  fi
+  if ! compose up -d --build --wait; then
+    echo "compose: up failed. Next: ./lab doctor" >&2
+    exit 1
+  fi
+  echo "iam-playground: containers are up. Run ./lab doctor before using the lab."
+}
+
+cmd_down() {
+  local destroy=0
+  while [[ $# -gt 0 ]]; do
+    case "$1" in
+      --destroy-data)
+        destroy=1
+        shift
+        ;;
+      --volumes)
+        echo "down: refusing --volumes. Pass --destroy-data to delete volumes." >&2
+        exit 2
+        ;;
+      *)
+        echo "down: unknown argument. Pass --destroy-data to delete volumes." >&2
+        exit 2
+        ;;
+    esac
+  done
+  require_docker
+  if [[ "$destroy" -eq 1 ]]; then
+    if ! compose down --volumes; then
+      echo "compose: down failed." >&2
+      exit 1
+    fi
+    return 0
+  fi
+  if ! compose down; then
+    echo "compose: down failed." >&2
+    exit 1
+  fi
+}
+
+cmd_doctor() {
+  if [[ $# -ne 0 ]]; then
+    echo "doctor: unknown argument" >&2
+    exit 2
+  fi
+  py -m iam_playground.doctor
+}
+
+cmd_endpoints() {
+  if [[ $# -ne 0 ]]; then
+    echo "endpoints: unknown argument" >&2
+    exit 2
+  fi
+  py -m iam_playground.endpoints_cli
+}
+
+cmd_jdbc() {
+  local source="$ROOT/clients/jdbc/src/main/java/iam/playground/LabJdbc.java"
+  if [[ $# -eq 1 && "$1" == "verify" && -f "$source" ]]; then
+    echo "The JDBC client is implemented. This command does not open a database in this build."
+    exit 0
+  fi
+  echo "jdbc is unavailable and is not in this checkpoint." >&2
+  exit 2
+}
+
+cmd_reset() {
+  local fixture=""
+  while [[ $# -gt 0 ]]; do
+    case "$1" in
+      --fixture)
+        if [[ $# -lt 2 ]]; then
+          echo "reset: --fixture needs a fixture id" >&2
+          exit 2
+        fi
+        fixture="$2"
+        shift 2
+        ;;
+      --fixture=*)
+        fixture="${1#--fixture=}"
+        shift
+        ;;
+      *)
+        echo "reset: unknown argument" >&2
+        exit 2
+        ;;
+    esac
+  done
+  if [[ "$fixture" != "enterprise-small-v1" ]]; then
+    echo "reset: fixture ${fixture:-missing} is not in this checkpoint" >&2
+    exit 2
+  fi
+  py -m iam_playground.reset_cli "$fixture"
+  rm -f "$ROOT/.lab-runs/active"
+}
+
+if [[ $# -lt 1 ]]; then
+  usage
+  exit 2
+fi
+
+cmd="$1"
+shift
+
+case "$cmd" in
+  up) cmd_up "$@" ;;
+  down) cmd_down "$@" ;;
+  doctor) cmd_doctor "$@" ;;
+  endpoints) cmd_endpoints "$@" ;;
+  reset) cmd_reset "$@" ;;
+  scenario)
+    py -m iam_playground.scenario_cli scenario "$@"
+    ;;
+  test)
+    py -m iam_playground.scenario_cli test "$@"
+    ;;
+  export)
+    py -m iam_playground.scenario_cli export "$@"
+    ;;
+  jdbc)
+    cmd_jdbc "$@"
+    ;;
+  -h | --help | help)
+    usage
+    exit 2
+    ;;
+  *)
+    echo "$cmd is unavailable and is not in this checkpoint." >&2
+    exit 2
+    ;;
+esac

@@ -6,4 +6,4 @@ Operators: lab-operator, local lab only, no source edits.
 
 Never log passwords, bearer tokens, client secrets, authorization codes, cookies, or model API keys.
 
-`./lab doctor` exits 2.
+`./lab up`, `doctor`, `endpoints`, `down`, `reset`, `scenario`, `test smoke`, and `export` are runnable. `jdbc verify` reports that the JDBC client is implemented and does not open a database. Other unknown commands exit 2. A scenario exit of 2 is INDETERMINATE, not an unavailable command.

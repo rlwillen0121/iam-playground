@@ -1,6 +1,6 @@
 # Architecture
 
-These are requirements, not a description of running code. No component below is implemented in this repository.
+The components below are in this repository. Release labels are the spec's sequence. Current exercise notes are in [capabilities.md](capabilities.md).
 
 ## Components
 
@@ -18,7 +18,7 @@ These are requirements, not a description of running code. No component below is
 | OpenLDAP | v0.4 |
 | Legacy SQL application and Java JDBC client | v0.4 |
 
-Release labels are scope, not completion. v1.0 is the consolidated lab after those packs, and it is not started.
+The packs share one Compose file. SCIM, REST, LDAP, and the legacy SQL tables are separate account stores. v1.0 in the spec is the consolidated release after those packs. The flagship journey has not been recorded.
 
 ## Account state
 

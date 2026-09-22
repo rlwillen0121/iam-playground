@@ -1,0 +1,20 @@
+FROM python:3.12.8-slim
+
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1 \
+    PIP_DISABLE_PIP_VERSION_CHECK=1 \
+    PYTHONPATH=/app/backend
+
+WORKDIR /app
+
+RUN useradd --create-home --uid 10001 app
+
+COPY requirements.txt /tmp/requirements.txt
+RUN pip install --no-cache-dir --require-hashes -r /tmp/requirements.txt \
+    && rm /tmp/requirements.txt
+
+COPY --chown=10001:10001 backend /app/backend
+COPY --chown=10001:10001 fixtures /app/fixtures
+COPY --chown=10001:10001 scenarios /app/scenarios
+
+USER 10001

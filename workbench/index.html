@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>IAM Playground</title>
+    <link rel="stylesheet" href="app.css" />
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <header>
+      <h1>IAM Playground</h1>
+      <p class="notice">This page is loopback only.</p>
+      <nav aria-label="Views">
+        <button type="button" data-view="overview" aria-pressed="true">Overview</button>
+        <button type="button" data-view="applications" aria-pressed="false">Applications</button>
+        <button type="button" data-view="data" aria-pressed="false">Data</button>
+        <button type="button" data-view="scenarios" aria-pressed="false">Scenarios</button>
+        <button type="button" data-view="activity" aria-pressed="false">Activity</button>
+      </nav>
+    </header>
+    <main>
+      <section id="demo" aria-labelledby="demo-heading">
+        <h2 id="demo-heading">Demo</h2>
+        <p>Those APIs enforce access, not this page.</p>
+        <ul class="endpoints">
+          <li><a href="http://127.0.0.1:8090/login">http://127.0.0.1:8090/login</a></li>
+          <li><a href="http://127.0.0.1:8090/api/read">http://127.0.0.1:8090/api/read</a></li>
+          <li><a href="http://127.0.0.1:8090/api/write">http://127.0.0.1:8090/api/write</a></li>
+          <li><a href="http://127.0.0.1:8090/api/admin">http://127.0.0.1:8090/api/admin</a></li>
+        </ul>
+      </section>
+      <section id="overview" aria-labelledby="overview-heading">
+        <h2 id="overview-heading">Overview</h2>
+        <dl>
+          <dt>Fixture</dt>
+          <dd>enterprise-small-v1</dd>
+          <dt>Generation</dt>
+          <dd>loaded from admin when /meta exists</dd>
+        </dl>
+        <h3>Target</h3>
+        <p><code>http://127.0.0.1:8090/healthz</code></p>
+        <pre id="health-target">Loading.</pre>
+        <h3>Admin</h3>
+        <p><code>http://127.0.0.1:8091/healthz</code></p>
+        <pre id="health-admin">Loading.</pre>
+      </section>
+      <section id="applications" aria-labelledby="applications-heading" hidden>
+        <h2 id="applications-heading">Applications</h2>
+        <p>Secrets are not shown.</p>
+        <h3>SCIM</h3>
+        <p><code>http://127.0.0.1:8090/apps/{app}/scim/v2</code></p>
+        <ul class="endpoints">
+          <li>app-a http://127.0.0.1:8090/apps/app-a/scim/v2</li>
+          <li>app-b http://127.0.0.1:8090/apps/app-b/scim/v2</li>
+        </ul>
+        <h3>REST</h3>
+        <ul class="endpoints">
+          <li>modern /rest/modern</li>
+          <li>legacy /rest/legacy</li>
+        </ul>
+        <h3>LDAP</h3>
+        <p><code>dc=iam,dc=test</code></p>
+        <h3>JDBC</h3>
+        <p>schema <code>legacy_app</code></p>
+      </section>
+      <section id="data" aria-labelledby="data-heading" hidden>
+        <h2 id="data-heading">Data</h2>
+        <p><code>http://127.0.0.1:8090/apps/app-a/scim/v2/Users?startIndex=1&amp;count=50</code></p>
+        <button type="button" id="load-users">Load users</button>
+        <pre id="data-result"></pre>
+      </section>
+      <section id="scenarios" aria-labelledby="scenarios-heading" hidden>
+        <h2 id="scenarios-heading">Scenarios</h2>
+        <p><code>POST http://127.0.0.1:8091/scenarios/run</code></p>
+        <ul id="scenario-list">
+          <li>
+            <span class="scenario-id">joiner</span>
+            <button type="button" data-scenario="joiner">Run reference</button>
+          </li>
+          <li>
+            <span class="scenario-id">mover-engineering-to-sales</span>
+            <button type="button" data-scenario="mover-engineering-to-sales">Run reference</button>
+          </li>
+          <li>
+            <span class="scenario-id">leaver</span>
+            <button type="button" data-scenario="leaver">Run reference</button>
+          </li>
+          <li>
+            <span class="scenario-id">rehire</span>
+            <button type="button" data-scenario="rehire">Run reference</button>
+          </li>
+          <li>
+            <span class="scenario-id">rename</span>
+            <button type="button" data-scenario="rename">Run reference</button>
+          </li>
+          <li>
+            <span class="scenario-id">orphan</span>
+            <button type="button" data-scenario="orphan">Run reference</button>
+          </li>
+          <li>
+            <span class="scenario-id">partial-failure</span>
+            <button type="button" data-scenario="partial-failure">Run reference</button>
+          </li>
+          <li>
+            <span class="scenario-id">retry-ambiguity</span>
+            <button type="button" data-scenario="retry-ambiguity">Run reference</button>
+          </li>
+          <li>
+            <span class="scenario-id">authorization-failure</span>
+            <button type="button" data-scenario="authorization-failure">Run reference</button>
+          </li>
+          <li>
+            <span class="scenario-id">scim-login-revoke</span>
+            <button type="button" data-scenario="scim-login-revoke">Run reference</button>
+          </li>
+          <li>
+            <span class="scenario-id">transaction-rollback</span>
+            <span class="unavailable">unavailable until JDBC</span>
+            <button type="button" data-scenario="transaction-rollback">Run reference</button>
+          </li>
+        </ul>
+        <h3>Response</h3>
+        <pre id="scenario-result"></pre>
+      </section>
+      <section id="activity" aria-labelledby="activity-heading" hidden>
+        <h2 id="activity-heading">Activity</h2>
+        <p><code>http://127.0.0.1:8091/activity</code></p>
+        <pre id="activity-result"></pre>
+      </section>
+    </main>
+  </body>
+</html>

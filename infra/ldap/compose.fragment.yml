@@ -1,0 +1,62 @@
+# OpenLDAP service. infra/compose.yml copies this service and rewrites
+# these paths to ./ldap/. Paths here stay relative to this file.
+# Published ports are loopback only. Passwords come from the environment.
+# --copy-service is required: first start substitutes tokens in the LDIF
+# and must not edit the mounted files in place.
+
+services:
+  openldap:
+    image: osixia/openldap:1.5.0
+    hostname: ldap.iam.test
+    command: ["--copy-service"]
+    environment:
+      LDAP_ORGANISATION: "IAM Playground"
+      LDAP_DOMAIN: "iam.test"
+      LDAP_BASE_DN: "dc=iam,dc=test"
+      LDAP_ADMIN_PASSWORD: ${LDAP_ADMIN_PASSWORD:-}
+      LDAP_CONFIG_PASSWORD: ${LDAP_CONFIG_PASSWORD:-}
+      LDAP_BACKEND: "mdb"
+      LDAP_READONLY_USER: "false"
+      LDAP_RFC2307BIS_SCHEMA: "false"
+      LDAP_TLS: "true"
+      LDAP_TLS_ENFORCE: "false"
+      LDAP_TLS_VERIFY_CLIENT: "try"
+    ports:
+      - "127.0.0.1:389:389"
+      - "127.0.0.1:636:636"
+    volumes:
+      - ./schema/playground.schema:/container/service/slapd/assets/config/bootstrap/schema/playground.schema
+      - ./seed.ldif:/container/service/slapd/assets/config/bootstrap/ldif/custom/30-seed.ldif
+      - openldap-data:/var/lib/ldap
+      - openldap-config:/etc/ldap/slapd.d
+      - openldap-certs:/container/service/slapd/assets/certs
+    networks:
+      - lab
+    healthcheck:
+      test:
+        - CMD
+        - ldapsearch
+        - -Q
+        - -LLL
+        - -Y
+        - EXTERNAL
+        - -H
+        - ldapi:///
+        - -b
+        - dc=iam,dc=test
+        - -s
+        - base
+        - "(objectClass=*)"
+        - dn
+      interval: 10s
+      timeout: 5s
+      retries: 30
+      start_period: 180s
+
+volumes:
+  openldap-data:
+  openldap-config:
+  openldap-certs:
+
+networks:
+  lab:
