@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+# Every invocation exits 2. No pack is shipped and no service is started.
+set -euo pipefail
+
+cat >&2 <<'EOF'
+Usage: ./lab <command> [args]
+
+  up
+  doctor
+  endpoints
+  scenario
+  jdbc
+  test
+  export
+  reset
+  down
+
+No pack has shipped. v0.1 (SCIM, Keycloak, demo application, fixtures, CLI, minimal workbench, verifier) is planned. This command does not start services.
+EOF
+exit 2

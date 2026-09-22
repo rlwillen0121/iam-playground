@@ -1,0 +1,16 @@
+name: test
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  fast-checks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: bash -n ./lab
+        run: bash -n ./lab
+      - name: lab doctor exits 2
+        run: if ./lab doctor; then exit 1; fi
