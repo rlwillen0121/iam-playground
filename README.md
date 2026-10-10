@@ -1,4 +1,4 @@
- IAM Playground
+# IAM Playground
 
 A self-hosted lab for testing identity integrations and bounded agents against realistic applications, with failures and independently verified access outcomes.
 
