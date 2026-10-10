@@ -1,4 +1,4 @@
-# IAM Playground
+ IAM Playground
 
 A self-hosted lab for testing identity integrations and bounded agents against realistic applications, with failures and independently verified access outcomes.
 
@@ -16,7 +16,7 @@ Spot checks in that same session:
 - An MCP lookup on app-a returned 200. The same call on app-b returned 403.
 - The ten in-memory evaluation tasks ran. Nine returned `PASSED`. `verification-unavailable` returned `INDETERMINATE`.
 
-The flagship browser journey (provision, sign in, revoke, prove the next protected request is denied) has not been run. The JDBC client has not been connected to a database. That session was one macOS machine with Docker Compose v5.1.3. It is not a support matrix for other platforms.
+The JDBC client has not been connected to a database. That session was one macOS machine with Docker Compose v5.1.3. It is not a support matrix for other platforms.
 
 ## Quickstart
 
@@ -73,7 +73,6 @@ python3.12 -m venv .venv
 | OpenLDAP directory | implemented; container healthy and base entries present. Image bootstrap does not apply `infra/ldap/slapd/acl.conf` or `overlays.conf` |
 | JDBC client | implemented; not connected |
 | Five-view workbench | implemented; HTTP 200 exercised |
-| Flagship journey | not run |
 
 ## Docs
 
